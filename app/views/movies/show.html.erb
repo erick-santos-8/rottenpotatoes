@@ -1,0 +1,32 @@
+<div class="header">
+  <h1>Movie Details</h1>
+</div>
+
+<div class="movie-details">
+  <h2><%= @movie.title %></h2>
+  
+  <ul id="details">
+    <li><strong>Rating:</strong> <span class="rating-badge"><%= @movie.rating %></span></li>
+    <li><strong>Released on:</strong> <%= @movie.release_date.strftime("%B %d, %Y") %></li>
+  </ul>
+
+  <% if @movie.description.present? %>
+    <div class="description-section">
+      <h3>Description:</h3>
+      <p id="description"><%= @movie.description %></p>
+    </div>
+  <% else %>
+    <div class="description-section">
+      <h3>Description:</h3>
+      <p id="description" class="no-description">No description available.</p>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= link_to 'Edit Info', edit_movie_path(@movie), class: 'btn btn-success' %>
+    <%= link_to 'Delete Movie', movie_path(@movie), 
+                data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, 
+                class: 'btn btn-danger' %>
+    <%= link_to 'Back to Movie List', movies_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<h2>Edit Movie</h2>
+
+<%= form_with model: @movie do |form| %>
+  <div class="field">
+    <%= form.label :title, 'Title' %>
+    <%= form.text_field :title, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rating, 'Rating' %>
+    <%= form.select :rating, Movie.all_ratings, { include_blank: 'Select a rating' }, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :release_date, 'Released On' %>
+    <%= form.date_select :release_date, { start_year: 1930, end_year: Date.today.year } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description, 'Description' %>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Update Movie', class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', movie_path(@movie), class: 'btn btn-secondary' %>
+  </div>
+<% end %>
