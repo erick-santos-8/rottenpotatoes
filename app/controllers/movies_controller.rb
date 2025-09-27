@@ -1,6 +1,22 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+    # Ordenação baseada no sort
+    sort = params[:sort] || 'id' # padrão: ordenar por ID
+    
+    case sort
+    when 'title'
+      @movies = Movie.order(title: :asc)
+      @sort_column = 'title'
+    when 'release_date'
+      @movies = Movie.order(release_date: :asc)
+      @sort_column = 'release_date'
+    else
+      @movies = Movie.all
+      @sort_column = nil
+    end
+    
+    # Destacar a coluna ordenada
+    @sort_column = sort if ['title', 'release_date'].include?(sort)
   end
 
   def show
